@@ -6,7 +6,7 @@ app.use(express.urlencoded({extended: true})) // Note: add this to trigger post 
 
 // front end
 app.get('/', function(req, res) {
-  res.sendFile('index.html', { root: '.' })
+  res.sendFile('index.html', { root: './static/' })
 })
 // backend
 const booksRouter = express.Router()
