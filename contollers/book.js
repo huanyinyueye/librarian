@@ -19,8 +19,7 @@ module.exports.getBooks = async (req, res) => {
 //
 module.exports.createBook = async(req, res) => {
   await sequelize.sync();
-  console.log(req.body, req.params)
-  const aaa = await Book.build({ name:req.body.name, author: req.body.author, isbn: req.body.isbn })
+  const aaa = await Book.create({ name:req.body.name, author: req.body.author, isbn: req.body.isbn })
   // const aaa = await Book.create({ name:'a', author: "ass", isbn: "123" })
   res.json(aaa instanceof Book)
   // res.json({ aaa })
