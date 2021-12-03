@@ -1,45 +1,55 @@
-const { Sequelize, DataTypes } = require("sequelize/dist")
-const sequelize = new Sequelize('postgres://user:postgres:5432/librarian')
+const { Sequelize, Model, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/librarian')
 
-const Book = sequelize.define('book', {
-  // Model attributes are defined here
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  author: {
-    type: DataTypes.STRING
-    // allowNull defaults to true
-  },
-  isbn:{
-    type: DataTypes.STRING
-  }
-}, {
-  // Other model options go here
-});
+class Book extends Model {}
+Book.init({
+  // id:{ type:DataTypes.INTEGER, primaryKey: true},
+  name: DataTypes.STRING,
+  author: DataTypes.STRING,
+  isbn: DataTypes.STRING
+}, { sequelize, modelName: 'Books' });
 
-
-
-module.exports.getBooks = (req, res) => {
-  res.json({ message: 'Get all books' })
-}
-module.exports.createBook = (req, res) => {
-  const aaa = Book.build({ name: "aaa", author: "bbb", isbn: "14618411312" })
-  // res.json(aaa instanceof User)
-  res.json({ aaa })
+// SELECT *
+module.exports.getBooks = async (req, res) => {
+  await sequelize.sync();
+  const bks = await Book.findAll();
+  res.json(bks)
 }
 
-module.exports.deleteBook = (req, res) => {
-  aaa.destroy();
-  res.json({ aaa })
+//
+module.exports.createBook = async(req, res) => {
+  await sequelize.sync();
+  console.log(req.body, req.params)
+  const aaa = await Book.build({ name:req.body.name, author: req.body.author, isbn: req.body.isbn })
+  // const aaa = await Book.create({ name:'a', author: "ass", isbn: "123" })
+  res.json(aaa instanceof Book)
+  // res.json({ aaa })
 }
 
-module.exports.updateBook = (req, res) => {
-  res.json({ message: 'Updatedayo' })
+module.exports.deleteBook = async (req, res) => {
+  await Book.destroy({
+    where: {
+      id: req.body.id
+    }
+  });
+  // res.json({ message: 'Delete ne' })
+}
+
+module.exports.updateBook = async (req, res) => {
+  await Book.update({ name: req.body.name }, {
+    where: {
+     id: req.body.id
+    }
+  });
+  // res.json({ message: 'Updatedayo' })
 }
 module.exports.selectBook = (req, res) => {
-  res.json({ message: 'Get a book by ID: ' + req.params.bookId })
+  Book.findAll({
+    where: {
+      id: req.params.bookId
+    }
+  }).then((bks)=> {
+    res.json(bks)
+  })
+ 
 }
-
-
-//https://sequelize.org/master/manual/model-instances.html
