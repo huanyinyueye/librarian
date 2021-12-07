@@ -31,6 +31,7 @@
         console.log("sss");
         const books = [];
         books.push(...res);
+        books.sort(function (a, b) { return a.id - b.id });
         const domm = books
           .map((b) => {
             return `<li>ID:"${b.id}",Name:"${b.name}",Author:"${b.author}"</li>`;
@@ -74,11 +75,11 @@
   <h2>Select</h2>
   <input name="id" id="SelectID" placeholder="Book ID" />
   <button onclick="select(SelectID.value)">Select Data </button>
-  <div id="onedata"></div>
+  <div id="onedata" style="font-size: 18px;"></div>
 
   <hr />
   <h2>All Books Data</h2>
-  <div id="alldata"></div>
+  <div id="alldata" style="font-size: 18px;"></div>
 </body>
 
 </html>
