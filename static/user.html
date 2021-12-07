@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html style="background-color: rgb(54, 54, 54); color:white;">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $.ajax({
+        type: "GET",
+        url: "/user/user/",
+        dataType: "json",
+        success: function (res) {
+            console.log("sss");
+            const users = [];
+            users.push(...res);
+            users.sort(function (a, b) { return a.id - b.id });
+            const domm = users
+                .map((u) => {
+                    return `<li>ID:"${u.id}",First Name:"${u.fname}",Last Name:"${u.lname}"</li>`;
+                })
+                .join("");
+
+            const htmllist = document.getElementById("alldata");
+            htmllist.innerHTML = domm;
+        },
+    });
+    function select(id) {
+        $.ajax({
+            type: "GET",
+            url: "/user/user/" + id,
+            dataType: "json",
+            success: function (res) {
+                console.log("sss");
+                const users = [];
+                users.push(...res);
+                const domm = users
+                    .map((u) => {
+                        return `<li>ID:"${u.id}",First Name:"${u.fname}",Last Name:"${u.lname}"</li>`;
+                    })
+                    .join("");
+
+                const htmllist = document.getElementById("onedata");
+                htmllist.innerHTML = domm;
+            },
+        });
+    }
+
+    function ShowPassword() {
+        var x = document.getElementById("Password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else { x.type = "password"; }
+    }
+
+</script>
+
+<body style="font-family: monospace;">
+    <h2>Create</h2>
+    <form method="post" action="/user/user">
+        <input name="fname" id="fname" placeholder="First Name" required />
+        <input name="lname" id="lname" placeholder="Last Name" required />
+        <input id="phonenum" name="phonenum" placeholder="Phone Number" pattern="^09\d{8}$" required />
+        <input id="email" name="email" placeholder="Email Address" type="email" required />
+        <input id="password" name="password" placeholder="Password" type="password" required />
+        <input type="checkbox" onclick="ShowPassword()"><small>ShowPassword</small></br>
+        <button type="submit">Create</button>
+    </form>
+    <hr />
+
+    <h2>Delete</h2>
+    <form method="post" action="/user/user/delete">
+        <input name="id" placeholder="User ID" required />
+        <button type="submit" name="submit">Delete</button>
+    </form>
+    <hr />
+
+    <h2>Update</h2>
+    <form method="post" action="/user/user/update">
+        <input name="id" placeholder="User ID" required />
+        <input name="fname" placeholder="New First Name" required />
+        <input name="lname" placeholder="New Last Name" required />
+        <input name="phonenum" placeholder="New Phone Number" type="tel" pattern="^09\d{8}$" required />
+        <input name="email" placeholder="New Email Address" type="email" required />
+        <input name="password" placeholder="New Password" type="password" required />
+        <input type="checkbox" onclick="ShowPassword()"><small>ShowPassword</small></br>
+        <button type="submit" name="submit">Update</button>
+    </form>
+    <hr />
+
+    <h2>Select</h2>
+    <input name="id" id="SelectID" placeholder="User ID" />
+    <button onclick="select(SelectID.value)">Select Data</button>
+    <div id="onedata"></div>
+
+    <hr />
+    <h2>All Users Data</h2>
+    <div id="alldata"></div>
+</body>
+
+</html>

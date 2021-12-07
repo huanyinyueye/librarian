@@ -5,12 +5,13 @@
 <script>
   $.ajax({
     type: "GET",
-    url: "/book",
+    url: "/book/book/",
     dataType: "json",
     success: function (res) {
       console.log("sss");
       const books = [];
       books.push(...res);
+      books.sort(function (a, b) { return a.id - b.id });
       const domm = books
         .map((b) => {
           return `<li>ID:${b.id},Name:${b.name},Author:${b.author} </li>`;
@@ -24,7 +25,7 @@
   function select(id) {
     $.ajax({
       type: "GET",
-      url: "/book/" + id,
+      url: "/book/book/" + id,
       dataType: "json",
       success: function (res) {
         console.log("sss");
@@ -45,27 +46,27 @@
 
 <body style="font-family: monospace;">
   <h2>Create</h2>
-  <form method="post" action="/book">
-    <input name="name" id="name" placeholder="Name" required/>
-    <input name="author" id="author" placeholder="Author" required/>
-    <input name="isbn" id="isbn" placeholder="ISBN" required/>
+  <form method="post" action="/book/book">
+    <input name="name" id="name" placeholder="Name" required />
+    <input name="author" id="author" placeholder="Author" required />
+    <input name="isbn" id="isbn" placeholder="ISBN" required />
     <button type="submit">Create</button>
   </form>
   <hr />
 
   <h2>Delete</h2>
-  <form method="post" action="/book/delete">
-    <input name="id" placeholder="Book ID" required/>
+  <form method="post" action="/book/book/delete">
+    <input name="id" placeholder="Book ID" required />
     <button type="submit" name="submit">Delete</button>
   </form>
   <hr />
 
   <h2>Update</h2>
-  <form method="post" action="/book/update">
-    <input name="id" placeholder="Book ID" required/>
-    <input name="name" placeholder="New Name" required/>
-    <input name="author" placeholder="New Author"required />
-    <input name="isbn" placeholder="New ISBN" required/>
+  <form method="post" action="/book/book/update">
+    <input name="id" placeholder="Book ID" required />
+    <input name="name" placeholder="New Name" required />
+    <input name="author" placeholder="New Author" required />
+    <input name="isbn" placeholder="New ISBN" required />
     <button type="submit" name="submit">Update</button>
   </form>
   <hr />

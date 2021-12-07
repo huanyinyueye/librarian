@@ -6,8 +6,8 @@ User.init({
   // id:{ type:DataTypes.INTEGER, primaryKey: true},
   fname: DataTypes.STRING,
   lname: DataTypes.STRING,
-  birthday: DataTypes.DATE,
-  username: DataTypes.STRING,
+  phonenum:DataTypes.INTEGER,
+  email: DataTypes.STRING,
   password: DataTypes.STRING
 }, { sequelize, modelName: 'Users' });
 
@@ -19,7 +19,7 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
   await sequelize.sync();
-  const aaa = await User.create({ fname: req.body.fname, lname: req.body.lname, birthday: req.body.birthday, username: req.body.username, password: req.body.password })
+  const uuu = await User.create({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:req.body.password })
   res.json("success")
 }
 
@@ -33,8 +33,8 @@ module.exports.deleteUser = async (req, res) => {
 }
 
 module.exports.updateUser = async (req, res) => {
-  await User.update({ fname: req.body.fname, lname: req.body.lname, birthday: req.body.birthday, username: req.body.username, password: req.body.password }, {
-    where: {  
+  await User.update({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:req.body.password }, {
+    where: {
       id: req.body.id
     }
   });
@@ -44,7 +44,7 @@ module.exports.updateUser = async (req, res) => {
 module.exports.selectUser = (req, res) => {
   User.findAll({
     where: {
-      id: req.params.UserId,
+      id: req.params.userId,
     }
   }).then((urs) => {
     res.json(urs)
