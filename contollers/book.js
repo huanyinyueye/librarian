@@ -1,7 +1,7 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/librarian')
 
-class Book extends Model {}
+class Book extends Model { }
 Book.init({
   // id:{ type:DataTypes.INTEGER, primaryKey: true},
   name: DataTypes.STRING,
@@ -9,20 +9,16 @@ Book.init({
   isbn: DataTypes.STRING
 }, { sequelize, modelName: 'Books' });
 
-// SELECT *
 module.exports.getBooks = async (req, res) => {
   await sequelize.sync();
   const bks = await Book.findAll();
   res.json(bks)
 }
 
-//
-module.exports.createBook = async(req, res) => {
+module.exports.createBook = async (req, res) => {
   await sequelize.sync();
-  const aaa = await Book.create({ name:req.body.name, author: req.body.author, isbn: req.body.isbn })
-  // const aaa = await Book.create({ name:'a', author: "ass", isbn: "123" })
-  res.json(aaa instanceof Book)
-  // res.json({ aaa })
+  const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn })
+  res.json("success")
 }
 
 module.exports.deleteBook = async (req, res) => {
@@ -31,24 +27,24 @@ module.exports.deleteBook = async (req, res) => {
       id: req.body.id
     }
   });
-  // res.json({ message: 'Delete ne' })
+  res.json("success")
 }
 
 module.exports.updateBook = async (req, res) => {
-  await Book.update({ name: req.body.name }, {
+  await Book.update({ name: req.body.name, author: req.body.author, isbn: req.body.isbn }, {
     where: {
-     id: req.body.id
+      id: req.body.id
     }
   });
-  // res.json({ message: 'Updatedayo' })
+  res.json("success")
 }
+
 module.exports.selectBook = (req, res) => {
   Book.findAll({
     where: {
-      id: req.params.bookId
+      id: req.params.bookId,
     }
-  }).then((bks)=> {
+  }).then((bks) => {
     res.json(bks)
   })
- 
 }

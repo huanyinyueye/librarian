@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-  ></script>
-  <script>
+<html style="background-color: rgb(54, 54, 54); color:white;">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  $.ajax({
+    type: "GET",
+    url: "/book",
+    dataType: "json",
+    success: function (res) {
+      console.log("sss");
+      const books = [];
+      books.push(...res);
+      const domm = books
+        .map((b) => {
+          return `<li>ID:${b.id},Name:${b.name},Author:${b.author} </li>`;
+        })
+        .join("");
+
+      const htmllist = document.getElementById("alldata");
+      htmllist.innerHTML = domm;
+    },
+  });
+  function select(id) {
     $.ajax({
       type: "GET",
-      url: "/book",
+      url: "/book/" + id,
       dataType: "json",
       success: function (res) {
         console.log("sss");
@@ -16,82 +32,51 @@
         books.push(...res);
         const domm = books
           .map((b) => {
-            return `
-                    <li>${b.id}-${b.name} ${b.author}</li>`;
+            return `<li>ID:"${b.id}",Name:"${b.name}",Author:"${b.author}"</li>`;
           })
           .join("");
 
-        const htmllist = document.getElementById("alldata");
+        const htmllist = document.getElementById("onedata");
         htmllist.innerHTML = domm;
       },
     });
-    function select(id) {
-      $.ajax({
-        type: "GET",
-        url: "/book/" + id,
-        dataType: "json",
-        success: function (res) {
-          console.log("sss");
-          const books = [];
-          books.push(...res);
-          const domm = books
-            .map((b) => {
-              return `
-                    <li>${b.id}-${b.name} ${b.author}</li>`;
-            })
-            .join("");
+  }
+</script>
 
-          const htmllist = document.getElementById("onedata");
-          htmllist.innerHTML = domm;
-        },
-      });
-    }
-  </script>
-  <body>
-      
-    <h3>POST</h3>
-    <form method="post" action="/book">
-      <div>
-        <label for="name"> N</label>
-        <input name="name" id="name" value="name" />
-        <br />
-      </div>
-      <div>
-        <label for="author">A</label
-        ><input name="author" id="author" value="author" />
-      </div>
-      <br />
-      <div>
-        <label for="isbn">I</label>
-        <input name="isbn" id="isbn" value="123" />
-      </div>
-      <br />
-      <button type="submit">create</button>
-    </form>
-    <hr />
+<body style="font-family: monospace;">
+  <h2>Create</h2>
+  <form method="post" action="/book">
+    <input name="name" id="name" placeholder="name" />
+    <input name="author" id="author" placeholder="author" />
+    <input name="isbn" id="isbn" placeholder="isbn" />
+    <button type="submit">Create</button>
+  </form>
+  <hr />
 
-    <h3>DELETE</h3>
-    <form method="post" action="/book/delete">
-      <input name="id" value="1" />
-      <input type="submit" name="submit" />
-    </form>
-    <hr />
+  <h2>Delete</h2>
+  <form method="post" action="/book/delete">
+    <input name="id" placeholder="book id" />
+    <button type="submit" name="submit">Delete</button>
+  </form>
+  <hr />
 
-    <h3>UPDATE</h3>
-    <form method="post" action="/book/update">
-      <input name="id" value="1" />
-      <input name="name" value="newname" />
-      <input type="submit" name="submit" />
-    </form>
-    <hr />
+  <h2>Update</h2>
+  <form method="post" action="/book/update">
+    <input name="id" value="1" />
+    <input name="name" placeholder="newname" />
+    <input name="author" placeholder="newauthor" />
+    <input name="isbn" placeholder="newisbn" />
+    <button type="submit" name="submit">Update</button>
+  </form>
+  <hr />
 
+  <h2>Select</h2>
+  <button onclick="select(1)">select data 1 </button>
+  <div id="onedata"></div>
 
-    <h3>select data</h3>
-    <button onclick="select(1)">selectselect data 1 </button>
-    <div id="onedata"></div>
+  <hr />
+  <h2>All Books Data</h2>
+  <div id="alldata"></div>
+</body>
 
-    <hr />
-    <h3>all data</h3>
-    <div id="alldata"></div>
-  </body>
 </html>
