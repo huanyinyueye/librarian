@@ -6,7 +6,7 @@ app.use(express.urlencoded({ extended: true })) // Note: add this to trigger pos
 
 // frontend
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: './static/' })
+  res.sendFile('book.html', { root: './static/' })
 })
 
 // backend
@@ -20,5 +20,5 @@ booksRouter.get('/:bookId', selectBook)
 app.use('/book', booksRouter)
 
 app.listen(_PORT, () => {
-  console.log(`Express server is running at http://localhost:` + _PORT)
+  console.log(`Express server is running at http://localhost:${_PORT}`)
 })

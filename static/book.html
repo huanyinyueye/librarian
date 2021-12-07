@@ -46,32 +46,33 @@
 <body style="font-family: monospace;">
   <h2>Create</h2>
   <form method="post" action="/book">
-    <input name="name" id="name" placeholder="name" />
-    <input name="author" id="author" placeholder="author" />
-    <input name="isbn" id="isbn" placeholder="isbn" />
+    <input name="name" id="name" placeholder="Name" required/>
+    <input name="author" id="author" placeholder="Author" required/>
+    <input name="isbn" id="isbn" placeholder="ISBN" required/>
     <button type="submit">Create</button>
   </form>
   <hr />
 
   <h2>Delete</h2>
   <form method="post" action="/book/delete">
-    <input name="id" placeholder="book id" />
+    <input name="id" placeholder="Book ID" required/>
     <button type="submit" name="submit">Delete</button>
   </form>
   <hr />
 
   <h2>Update</h2>
   <form method="post" action="/book/update">
-    <input name="id" value="1" />
-    <input name="name" placeholder="newname" />
-    <input name="author" placeholder="newauthor" />
-    <input name="isbn" placeholder="newisbn" />
+    <input name="id" placeholder="Book ID" required/>
+    <input name="name" placeholder="New Name" required/>
+    <input name="author" placeholder="New Author"required />
+    <input name="isbn" placeholder="New ISBN" required/>
     <button type="submit" name="submit">Update</button>
   </form>
   <hr />
 
   <h2>Select</h2>
-  <button onclick="select(1)">select data 1 </button>
+  <input name="id" id="SelectID" placeholder="Book ID" />
+  <button onclick="select(SelectID.value)">Select Data </button>
   <div id="onedata"></div>
 
   <hr />
