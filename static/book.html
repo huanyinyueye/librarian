@@ -14,7 +14,7 @@
       books.sort(function (a, b) { return a.id - b.id });
       const domm = books
         .map((b) => {
-          return `<li>ID:${b.id}, Name:${b.name}, Author:${b.author}, ISBN:${b.isbn}</li>`;
+          return `<li>ID:<strong>${b.id}</strong></br>Name:<strong>${b.name}</strong></br>Author:<strong>${b.author}</strong></br>ISBN:<strong>${b.isbn}</strong></li></br>`;
         })
         .join("");
 
@@ -34,7 +34,7 @@
         books.sort(function (a, b) { return a.id - b.id });
         const domm = books
           .map((b) => {
-            return `<li>ID:${b.id}, Name:${b.name}, Author:${b.author}, ISBN:${b.isbn}</li>`;
+            return `<li>ID:<strong>${b.id}</strong></br>Name:<strong>${b.name}</strong></br>Author:<strong>${b.author}</strong></br>ISBN:<strong>${b.isbn}</strong></li></br>`;
           })
           .join("");
 
@@ -45,46 +45,48 @@
   }
 </script>
 
-<body style="font-family: monospace;">
+<body style="font-family: monospace; margin-left: 50px;">
+  <h1>BOOK's CRUD</h1>
+  <a href="http://localhost:3000"><button>Back to Homepage</button></a>
+  <hr style="margin-left: -50px;" />
   <h2>Create</h2>
-  <form method="post" action="/book/book">
-    <input name="name" id="name" placeholder="Name" required />
-    <input name="author" id="author" placeholder="Author" required />
+  <form method="post" action="/book/book" style="line-height: 200%;" >
+    <input name="name" id="name" placeholder="Name" required /></br>
+    <input name="author" id="author" placeholder="Author" required /></br>
     <input name="isbn" id="isbn" placeholder="ISBN"
       pattern="^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$"
-      required />
-    <button type="submit">Create</button>
+      required /></br>
+    <button type="submit" style="margin-left: 120px;">Create</button>
   </form>
-  <hr />
+  <hr style="margin-left: -50px;" />
 
   <h2>Delete</h2>
   <form method="post" action="/book/book/delete">
-    <input name="id" placeholder="Book ID" required />
+    <input name="id" placeholder="Book ID" type="number" required />
     <button type="submit" name="submit">Delete</button>
   </form>
-  <hr />
+  <hr style="margin-left: -50px;" />
 
   <h2>Update</h2>
-  <form method="post" action="/book/book/update">
-    <input name="id" placeholder="Book ID" required />
-    <input name="name" placeholder="New Name" required />
-    <input name="author" placeholder="New Author" required />
-    <input name="isbn" placeholder="New ISBN" required />
-    <button type="submit" name="submit">Update</button>
+  <form method="post" action="/book/book/update" style="line-height: 200%;">
+    <input name="id" placeholder="Book ID" type="number" required /></br>
+    <input name="name" placeholder="New Name" required /></br>
+    <input name="author" placeholder="New Author" required /></br>
+    <input name="isbn" placeholder="New ISBN" required /></br>
+    <button type="submit" name="submit" style="margin-left: 120px;">Update</button>
   </form>
-  <hr />
+  <hr style="margin-left: -50px;" />
 
   <h2>Select</h2>
-  <input name="id" id="SelectID" placeholder="Book ID" />
+  <input name="id" id="SelectID" placeholder="Book ID" type="number" />
   <button onclick="select(SelectID.value)">Select Data </button>
   <div id="onedata" style="font-size: 18px;"></div>
 
-  <hr />
+  <hr style="margin-left: -50px;" />
   <h2>All Books Data</h2>
   <div id="alldata" style="font-size: 18px;"></div>
-  <hr />
+  <hr style="margin-left: -50px;" />
 
-  <a href="http://localhost:3000"><button>Back to Homepage</button></a>
 </body>
 
 </html>

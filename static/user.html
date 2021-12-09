@@ -14,7 +14,7 @@
             users.sort(function (a, b) { return a.id - b.id });
             const domm = users
                 .map((u) => {
-                    return `<li>ID:${u.id} ,Name:${u.fname} ${u.lname}</li>`;
+                    return `<li>ID:<strong>${u.id}</strong></br>Name:<strong>${u.fname} ${u.lname}</strong></li></br>`;
                 })
                 .join("");
 
@@ -34,7 +34,7 @@
                 users.sort(function (a, b) { return a.id - b.id });
                 const domm = users
                     .map((u) => {
-                        return `<li>ID:"${u.id}",First Name:"${u.fname}",Last Name:"${u.lname}"</li>`;
+                        return `<li>ID:<strong>${u.id}</strong></br>Name:<strong>${u.fname} ${u.lname}</strong></li></br>`;
                     })
                     .join("");
 
@@ -59,50 +59,52 @@
 
 </script>
 
-<body style="font-family: monospace;">
+<body style="font-family: monospace; margin-left: 50px;">
+    <h1>USER's CRUD</h1>
+    <a href="http://localhost:3000"><button>Back to Homepage</button></a>
+    <hr style="margin-left: -50px;" />
     <h2>Create</h2>
-    <form method="post" action="/user/user">
-        <input name="fname" id="fname" placeholder="First Name" required />
-        <input name="lname" id="lname" placeholder="Last Name" required />
-        <input id="phonenum" name="phonenum" placeholder="Phone Number" pattern="^09\d{8}$" required />
-        <input id="email" name="email" placeholder="Email Address" type="email" required />
+    <form method="post" action="/user/user" style="line-height: 200%;">
+        <input name="fname" id="fname" placeholder="First Name" required /></br>
+        <input name="lname" id="lname" placeholder="Last Name" required /></br>
+        <input id="phonenum" name="phonenum" placeholder="Phone Number" pattern="^09\d{8}$" required /></br>
+        <input id="email" name="email" placeholder="Email Address" type="email" required /></br>
         <input id="password" name="password" placeholder="Password" type="password" required />
-        <input type="checkbox" onclick="ShowPassword()"><small>ShowPassword</small></br>
-        <button type="submit">Create</button>
+        <input type="checkbox" onclick="ShowPassword()">ShowPassword</br>
+        <button type="submit" style="margin-left: 120px;">Create</button>
     </form>
-    <hr />
+    <hr style="margin-left: -50px;" />
 
     <h2>Delete</h2>
     <form method="post" action="/user/user/delete">
-        <input name="id" placeholder="User ID" required />
+        <input name="id" placeholder="User ID" type="number" required />
         <button type="submit" name="submit">Delete</button>
     </form>
-    <hr />
+    <hr style="margin-left: -50px;" />
 
     <h2>Update</h2>
-    <form method="post" action="/user/user/update">
-        <input name="id" placeholder="User ID" required />
-        <input name="fname" placeholder="New First Name" required />
-        <input name="lname" placeholder="New Last Name" required />
-        <input name="phonenum" placeholder="New Phone Number" type="tel" pattern="^09\d{8}$" required />
-        <input name="email" placeholder="New Email Address" type="email" required />
+    <form method="post" action="/user/user/update" style="line-height: 200%;">
+        <input name="id" placeholder="User ID" type="number" required /></br>
+        <input name="fname" placeholder="New First Name" required /></br>
+        <input name="lname" placeholder="New Last Name" required /></br>
+        <input name="phonenum" placeholder="New Phone Number" type="tel" pattern="^09\d{8}$" required /></br>
+        <input name="email" placeholder="New Email Address" type="email" required /></br>
         <input name="password" id="newpassword" placeholder="New Password" type="password" required />
-        <input type="checkbox" onclick="ShowNewPassword()"><small>ShowPassword</small></br>
-        <button type="submit" name="submit">Update</button>
+        <input type="checkbox" onclick="ShowNewPassword()">ShowPassword</br>
+        <button type="submit" name="submit" style="margin-left: 120px;">Update</button>
     </form>
-    <hr />
+    <hr style="margin-left: -50px;" />
 
     <h2>Select</h2>
-    <input name="id" id="SelectID" placeholder="User ID" />
+    <input name="id" id="SelectID" placeholder="User ID" type="number" />
     <button onclick="select(SelectID.value)">Select Data</button>
     <div id="onedata" style="font-size: 18px;"></div>
 
-    <hr />
+    <hr style="margin-left: -50px;" />
     <h2>All Users Data</h2>
     <div id="alldata" style="font-size: 18px;"></div>
-    <hr />
+    <hr style="margin-left: -50px;" />
 
-    <a href="http://localhost:3000"><button>Back to Homepage</button></a>
 </body>
 
 </html>

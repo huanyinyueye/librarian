@@ -3,10 +3,11 @@ const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/lib
 
 class Book extends Model { }
 Book.init({
-  // id:{ type:DataTypes.INTEGER, primaryKey: true},
   name: DataTypes.STRING,
   author: DataTypes.STRING,
-  isbn: DataTypes.STRING
+  isbn: DataTypes.STRING,
+  // bookstat: DataTypes.ENUM('Available', 'Maintenance', 'Loaned', 'Reserved'),
+  // due_back: DataTypes.DATE
 }, { sequelize, modelName: 'Books' });
 
 module.exports.getBooks = async (req, res) => {
@@ -17,7 +18,7 @@ module.exports.getBooks = async (req, res) => {
 
 module.exports.createBook = async (req, res) => {
   await sequelize.sync();
-  const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn }) 
+  const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn })
   res.redirect('/book');
 }
 
