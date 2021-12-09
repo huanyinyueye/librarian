@@ -1,12 +1,15 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:postgres@localhost:5432/librarian')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 class User extends Model { }
 User.init({
   // id:{ type:DataTypes.INTEGER, primaryKey: true},
   fname: DataTypes.STRING,
   lname: DataTypes.STRING,
-  phonenum:DataTypes.INTEGER,
+  phonenum:DataTypes.STRING,
   email: DataTypes.STRING,
   password: DataTypes.STRING
 }, { sequelize, modelName: 'Users' });
@@ -19,8 +22,10 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.createUser = async (req, res) => {
   await sequelize.sync();
-  const uuu = await User.create({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:req.body.password })
-  res.json("success")
+  const hash = bcrypt.hashSync(req.body.password, saltRounds);
+  const uuu = await User.create({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:hash })
+  res.redirect('/user');
+  
 }
 
 module.exports.deleteUser = async (req, res) => {
@@ -29,16 +34,17 @@ module.exports.deleteUser = async (req, res) => {
       id: req.body.id
     }
   });
-  res.json("success")
+  res.redirect('/user');
 }
 
 module.exports.updateUser = async (req, res) => {
-  await User.update({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:req.body.password }, {
+  const hash = bcrypt.hashSync(req.body.password, saltRounds);
+  await User.update({ fname: req.body.fname, lname: req.body.lname, phonenum:req.body.phonenum, email:req.body.email, password:hash }, {
     where: {
       id: req.body.id
     }
   });
-  res.json("success")
+  res.redirect('/user');
 }
 
 module.exports.selectUser = (req, res) => {

@@ -17,8 +17,8 @@ module.exports.getBooks = async (req, res) => {
 
 module.exports.createBook = async (req, res) => {
   await sequelize.sync();
-  const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn })
-  res.json("success")
+  const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn }) 
+  res.redirect('/book');
 }
 
 module.exports.deleteBook = async (req, res) => {
@@ -27,7 +27,7 @@ module.exports.deleteBook = async (req, res) => {
       id: req.body.id
     }
   });
-  res.json("success")
+  res.redirect('/book');
 }
 
 module.exports.updateBook = async (req, res) => {
@@ -36,7 +36,7 @@ module.exports.updateBook = async (req, res) => {
       id: req.body.id
     }
   });
-  res.json("success")
+  res.redirect('/book');
 }
 
 module.exports.selectBook = (req, res) => {

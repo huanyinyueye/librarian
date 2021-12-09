@@ -14,7 +14,7 @@
             users.sort(function (a, b) { return a.id - b.id });
             const domm = users
                 .map((u) => {
-                    return `<li>ID:"${u.id}",First Name:"${u.fname}",Last Name:"${u.lname}"</li>`;
+                    return `<li>ID:${u.id} ,Name:${u.fname} ${u.lname}</li>`;
                 })
                 .join("");
 
@@ -45,7 +45,13 @@
     }
 
     function ShowPassword() {
-        var x = document.getElementById("Password");
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else { x.type = "password"; }
+    }
+    function ShowNewPassword() {
+        var x = document.getElementById("newpassword");
         if (x.type === "password") {
             x.type = "text";
         } else { x.type = "password"; }
@@ -80,8 +86,8 @@
         <input name="lname" placeholder="New Last Name" required />
         <input name="phonenum" placeholder="New Phone Number" type="tel" pattern="^09\d{8}$" required />
         <input name="email" placeholder="New Email Address" type="email" required />
-        <input name="password" placeholder="New Password" type="password" required />
-        <input type="checkbox" onclick="ShowPassword()"><small>ShowPassword</small></br>
+        <input name="password" id="newpassword" placeholder="New Password" type="password" required />
+        <input type="checkbox" onclick="ShowNewPassword()"><small>ShowPassword</small></br>
         <button type="submit" name="submit">Update</button>
     </form>
     <hr />
@@ -94,6 +100,9 @@
     <hr />
     <h2>All Users Data</h2>
     <div id="alldata" style="font-size: 18px;"></div>
+    <hr />
+
+    <a href="http://localhost:3000"><button>Back to Homepage</button></a>
 </body>
 
 </html>

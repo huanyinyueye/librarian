@@ -13,6 +13,8 @@ app.get('/', function (req, res) {
 app.get('/book', function (req, res) {
   res.sendFile('book.html', { root: './static/' })
 })
+
+
 app.get('/user', function (req, res) {
   res.sendFile('user.html', { root: './static/' })
 })
@@ -22,7 +24,7 @@ const booksRouter = express.Router()
 
 booksRouter.route('/book').get(getBooks).post(createBook)
 booksRouter.route('/book/delete').post(deleteBook)
-booksRouter.route('/book/update').post(updateBook)
+booksRouter.route('/book/update').post(updateBook)    
 booksRouter.get('/book/:bookId', selectBook)
 
 app.use('/book', booksRouter)
