@@ -4,23 +4,30 @@ const _PORT = 3000
 const { getBooks, selectBook, createBook, deleteBook, updateBook } = require('./contollers/book')
 const { getUsers, selectUser, createUser, deleteUser, updateUser } = require('./contollers/user')
 app.use(express.urlencoded({ extended: true })) // Note: add this to trigger post action
+app.set('view engine', 'ejs'); 
 
 // frontend
-app.get('/', function (req, res) {
-  res.sendFile('login.html', { root: './static/' })
-})
 
-app.get('/main', function(req,res){
-  res.sendFile('index.html',{root:'./static/'})
-})
-
-app.get('/book', function (req, res) {
-  res.sendFile('book.html', { root: './static/' })
-})
+app.get('/', function(req, res) {
+  res.render('pages/login');
+});
 
 
-app.get('/user', function (req, res) {
-  res.sendFile('user.html', { root: './static/' })
+app.get('/main', function(req, res) {
+  res.render('pages/index');
+});
+
+app.get('/book', function(req, res) {
+  res.render('pages/book');
+});
+
+app.get('/user', function(req, res) {
+  res.render('pages/user');
+});
+
+app.get('/users', async (req, res) => {
+  const users = await Users.findAll()
+
 })
 
 // backend

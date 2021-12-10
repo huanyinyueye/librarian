@@ -11,13 +11,13 @@ Book.init({
 }, { sequelize, modelName: 'Books' });
 
 module.exports.getBooks = async (req, res) => {
-  await sequelize.sync();
+  //await sequelize.sync();
   const bks = await Book.findAll();
   res.json(bks)
 }
 
 module.exports.createBook = async (req, res) => {
-  await sequelize.sync();
+  //await sequelize.sync();
   const aaa = await Book.create({ name: req.body.name, author: req.body.author, isbn: req.body.isbn })
   res.redirect('/book');
 }
