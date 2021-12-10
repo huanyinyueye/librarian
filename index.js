@@ -4,9 +4,10 @@ const _PORT = 3000
 const { getBooks, selectBook, createBook, deleteBook, updateBook } = require('./contollers/book')
 const { getUsers, selectUser, createUser, deleteUser, updateUser } = require('./contollers/user')
 app.use(express.urlencoded({ extended: true })) // Note: add this to trigger post action
-app.set('view engine', 'ejs');
 
 // frontend
+app.set('view engine', 'ejs');
+
 app.get('/', function (req, res) {
   res.render('pages/login');
 });
