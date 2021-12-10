@@ -14,7 +14,7 @@
             users.sort(function (a, b) { return a.id - b.id });
             const domm = users
                 .map((u) => {
-                    return `<li>ID:<strong>${u.id}</strong></br>Name:<strong>${u.fname} ${u.lname}</strong></li></br>`;
+                    return `<li>ID:<strong>${u.id}</strong></br>Name:<strong>${u.lname}${u.fname}</strong></li></br>`;
                 })
                 .join("");
 

@@ -14,13 +14,13 @@ User.init({
 }, { sequelize, modelName: 'Users' });
 
 module.exports.getUsers = async (req, res) => {
-  await sequelize.sync();
+  //await sequelize.sync();
   const urs = await User.findAll();
   res.json(urs)
 }
 
 module.exports.createUser = async (req, res) => {
-  await sequelize.sync();
+  //await sequelize.sync();
   const hash = bcrypt.hashSync(req.body.password, saltRounds);
   const uuu = await User.create({ fname: req.body.fname, lname: req.body.lname, phonenum: req.body.phonenum, email: req.body.email, password: hash })
   res.redirect('/user');

@@ -11,7 +11,8 @@ Book.init({
 }, { sequelize, modelName: 'Books' });
 
 module.exports.getBooks = async (req, res) => {
-  //await sequelize.sync();
+  //await sequelize.sync(); 
+  //When database didn't have table, use "sequelize.sync()";
   const bks = await Book.findAll();
   res.json(bks)
 }
