@@ -7,7 +7,11 @@ app.use(express.urlencoded({ extended: true })) // Note: add this to trigger pos
 
 // frontend
 app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: './static/' })
+  res.sendFile('login.html', { root: './static/' })
+})
+
+app.get('/main', function(req,res){
+  res.sendFile('index.html',{root:'./static/'})
 })
 
 app.get('/book', function (req, res) {
@@ -37,6 +41,10 @@ usersRouter.route('/user/update').post(updateUser)
 usersRouter.get('/user/:userId', selectUser)
 
 app.use('/user',usersRouter)
+
+const mainRouter = express.Router()
+
+app.use('/main',mainRouter)
 
 app.listen(_PORT, () => {
   console.log(`Express server is running at http://localhost:${_PORT}`)

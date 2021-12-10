@@ -8,7 +8,6 @@
     url: "/book/book/",
     dataType: "json",
     success: function (res) {
-      console.log("sss");
       const books = [];
       books.push(...res);
       books.sort(function (a, b) { return a.id - b.id });
@@ -47,7 +46,7 @@
 
 <body style="font-family: monospace; margin-left: 50px;">
   <h1>BOOK's CRUD</h1>
-  <a href="http://localhost:3000"><button>Back to Homepage</button></a>
+  <a href="http://localhost:3000/main"><button>Back to Homepage</button></a>
   <hr style="margin-left: -50px;" />
   <h2>Create</h2>
   <form method="post" action="/book/book" style="line-height: 200%;" >
